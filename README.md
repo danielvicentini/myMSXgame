@@ -10,3 +10,7 @@ game5.rom: jogo no formato cartucho (rom) pronto para jogar em emuladores.
 game4-rev.bas: versões antigas
 
 bas_rom.txt: micro-tutorial para conversão de Bas para ROM
+
+# A fazer
+
+Modo gráfico screen2: prévia está no arquivo jogo-sc2.txt - Alpha
