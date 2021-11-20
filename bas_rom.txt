@@ -1,0 +1,25 @@
+Conversão de arquivo .bas para .rom
+https://www.msx.org/forum/msx-talk/development/convert-a-program-basic-to-rom-file-easly
+
+Passos
+
+1-Incluir esta linha
+1 '01234567
+
+2 salvar o jogo assim:
+
+DEFUSR=&H54F6:A=USR(0):BSAVE"<arquivo.rom>",&H8007,&HBFFF (salva com 16k)
+
+3 extrair arquivo .rom para editar no PC/windows
+
+4 editar <arquivo.rom> no hex editor
+
+alterar 1a linha com hex editor
+
+de 
+
+FF 11 80 04 00 3A 8F E6 30 31 32 33 34 35 36 37 (ou o que tiver)
+
+para
+
+41 42 00 00 00 00 00 00 10 80 00 00 00 00 00 00

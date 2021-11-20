@@ -1,0 +1,62 @@
+1 'define a tela
+5 color 15,1,1:strig(0) on: sprite on
+10 screen 2,2: gosub 60: 'esta sub cria os sprites
+13 open "grp:"as#1:
+14 preset (0,0):print #1, "Jogo"
+15 if strig(0)=-1 then cls else 15
+16 preset (0,0):print #1, "by DV"
+17 if strig(0)=-1 then cls else 17
+20 preset (0,0):print #1,"PTS:    REC:    VID:    RES:"
+22 'x,y localizacao, f = velocidade
+23 xi=100: yi=100: 'coordenadas do inimigo
+25 x=5
+27 y=1
+28 f=8
+29 ' movimentos. pega teclas e espaco
+30 m=stick(0)
+31 if m=3 then x=x+f
+32 if m=7 then x=x-f
+33 if m=1 then y=y-f
+34 if m=5 then y=y+f
+35 if m=2 THEN x=x+f:y=y-f
+36 if m=4 then x=x+f:y=y+f
+37 if m=6 then x=x-f:y=y+f
+38 if m=8 then x=x-f:y=y-f 
+40 if strig(0)=-1 and bo=0 then bo=1 : ix=x: iy=y: 'disparo
+41 if x=>240 then x=240
+42 if x<=1 then x=1
+43 if y<=1 then y=1
+44 if y>=180 then y=180
+45 ' desenha
+46 put sprite 0,(x,y),10: 'nave
+47 if bo=1 then ix=ix+f*2:  put sprite 1,(ix,iy),12: if ix=>240 then bo=0: put sprite 1,(ix,iy),0: 'movimenta tiro ate final da tela, quando apaga
+48 put sprite 2,(xi,yi),4: if xi>x then xi=xi-1 else if xi<x then xi=xi+1: 'inimigo persegue nave
+49 if yi>y then yi=yi-1 else if yi<y then yi=yi+1
+52 put sprite 3,(150,120),15: ' plota objeto a resgatar
+54 goto 30
+55 ' dados para criar os sprites
+57 ' nave
+60 DATA &H00,&H07,&H0C,&H08,&H18,&H10,&H18,&H7F
+70 DATA &HFF,&HFF,&HFF,&HFF,&HFF,&H7F,&H00,&H00
+80 DATA &H00,&HC0,&H60,&H30,&H10,&H10,&H30,&HFE
+90 DATA &HFF,&HFF,&HFF,&HFF,&HFF,&HFE,&H00,&H00
+95 ' tiro
+100 DATA &H00,&H00,&H00,&H00,&H00,&H00,&H1F,&H3F
+110 DATA &H00,&HFF,&HFF,&H00,&H00,&H00,&H00,&H00
+120 DATA &H00,&H00,&H00,&H00,&H00,&H00,&HFF,&HFF
+130 DATA &H00,&HFE,&HFC,&H00,&H00,&H00,&H00,&H00
+135 ' inimigo
+140 DATA &H00,&H00,&H00,&H23,&H22,&H22,&H22,&H23
+150 DATA &H67,&H48,&H70,&H50,&H40,&H40,&H30,&H00
+160 DATA &H00,&H00,&H00,&HC4,&H44,&H44,&H44,&HC4
+170 DATA &HE4,&H12,&H0E,&H0A,&H02,&H02,&H0C,&H00
+180 ' objeto para resgate
+185 DATA &H00,&H00,&H01,&H03,&H03,&H01,&H07,&H0B
+190 DATA &H13,&H01,&H02,&H04,&H08,&H00,&H00,&H00
+200 DATA &H00,&H00,&H80,&HC0,&HC0,&H80,&HE0,&HD0
+210 DATA &HC8,&H80,&H40,&H20,&H10,&H00,&H00,&H00
+220 DATA *
+300 S=BASE(9)
+400 READ R$: IF R$="*" THEN RETURN ELSE VPOKE S,VAL(R$):S=S+1:GOTO 400
+500 ' colisao
+510 beep: sprite off: return
